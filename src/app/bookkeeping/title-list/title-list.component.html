@@ -1,0 +1,59 @@
+<div class="title-container" fxLayout="column" fxLayoutAlign="space-around stretch">
+  <h1>
+    <mat-icon>account_balance</mat-icon>
+    Title Editor
+  </h1>
+  <form #f="ngForm" (ngSubmit)="onSubmit(f)" class="title-form" fxLayout="row" fxLayoutAlign="space-evenly center">
+    <mat-form-field>
+      <input matInput placeholder="Id" name="id" id="id" [ngModel]="title.id" required>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Title" name="name" id="name" [ngModel]="title.name" required>
+    </mat-form-field>
+    <button mat-button type="submit">Update</button>
+    <button mat-button [disabled]="title.id === null" type="button" (click)="onReset()">Reset</button>
+  </form>
+  <mat-form-field class="title-filter">
+      <input matInput (keyup)="onApplyFilter($event.target.value)" placeholder="Filter">
+  </mat-form-field>
+  <mat-paginator [pageSize]="10" class="title-pagintor"></mat-paginator>
+  <table mat-table [dataSource]="dataSource" class="title-table" matSort>
+    <!-- Id Column -->
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Id. </th>
+      <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+    </ng-container>
+
+    <!-- Debit Column -->
+    <ng-container matColumnDef="debit">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Debit </th>
+      <td mat-cell *matCellDef="let element"> {{onAmout(element.id, 0)}} </td>
+    </ng-container>
+
+
+    <!-- Credit Column -->
+    <ng-container matColumnDef="credit">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Credit </th>
+      <td mat-cell *matCellDef="let element"> {{onAmout(element.id, 1)}} </td>
+    </ng-container>
+
+    <!-- Operator Column -->
+    <ng-container matColumnDef="operator">
+      <th mat-header-cell *matHeaderCellDef> Operator </th>
+      <td mat-cell *matCellDef="let element">
+        <a href="javascript:void(0)" (click)="onSelect(element.id)">
+          <mat-icon>edit</mat-icon>
+        </a>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>

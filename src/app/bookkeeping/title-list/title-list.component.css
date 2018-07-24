@@ -1,0 +1,15 @@
+.title-filter, .title-form, .title-pagintor {
+  width: 100%;
+}
+
+.title-table {
+  width: 100%;
+}
+
+.title-form mat-form-field, button{
+  width: 25%;
+}
+
+.title-container {
+  padding: 0.2em 0.2em 0.5em 0.5em;
+}

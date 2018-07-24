@@ -1,0 +1,115 @@
+<div class="entry-list" fxLayout="column" fxLayoutAlign="space-around stretch">
+  <h1>
+    <mat-icon>assignment</mat-icon>
+    Entry List
+  </h1>
+  <mat-form-field class="entry-filter">
+      <input matInput (keyup)="onApplyFilter($event.target.value)" placeholder="Filter">
+  </mat-form-field>
+  <mat-paginator [pageSize]="10" class="entry-pagintor"></mat-paginator>
+  <table mat-table [dataSource]="dataSource" class="entry-table" matSort>
+    <!-- Trans. Id Column -->
+    <ng-container matColumnDef="transId">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Trans. Id </th>
+        <td mat-cell *matCellDef="let element" color="primay"> {{element.transId}} </td>
+    </ng-container>
+
+    <!-- Id Column -->
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Id. </th>
+      <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+    </ng-container>
+
+    <!-- Desc. Id Column -->
+    <ng-container matColumnDef="desc">
+      <th mat-header-cell *matHeaderCellDef> Desc. </th>
+      <td mat-cell *matCellDef="let element"> {{element.desc}} </td>
+    </ng-container>
+
+    <!-- Date Column -->
+    <ng-container matColumnDef="date">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>
+      <td mat-cell *matCellDef="let element"> {{element.date}} </td>
+    </ng-container>
+
+    <!-- Title Id Column -->
+    <ng-container matColumnDef="titleId">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Title </th>
+      <td mat-cell *matCellDef="let element"> {{getTitle(element.titleId)}} </td>
+    </ng-container>
+
+    <!-- Amount Column -->
+    <ng-container matColumnDef="amount">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Amount </th>
+      <td mat-cell *matCellDef="let element"> {{element.amount}} </td>
+    </ng-container>
+
+    <!-- kind Column -->
+    <ng-container matColumnDef="kind">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Kind </th>
+      <td mat-cell *matCellDef="let element"> {{getKind(element.kind)}} </td>
+    </ng-container>
+
+    <!-- Ref. Id Column -->
+    <ng-container matColumnDef="refId">
+      <th mat-header-cell *matHeaderCellDef> Ref. Id </th>
+      <td mat-cell *matCellDef="let element"> {{element.refId}} </td>
+    </ng-container>
+
+    <!-- Operator Column -->
+    <ng-container matColumnDef="operator">
+        <th mat-header-cell *matHeaderCellDef> Operator </th>
+        <td mat-cell *matCellDef="let element">
+          <a href="javascript:void(0)" (click)="onDelete(element.guid, element.id)">
+              <mat-icon>delete</mat-icon>
+          </a>
+          <a href="javascript:void(0)" (click)="onSelect(element.guid, element.id)">
+              <mat-icon>edit</mat-icon>
+          </a>
+        </td>
+      </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <form #f="ngForm" fxLayout="column" fxLayoutAlign="space-around stretch">
+      <input matInput name="id" id="id" [ngModel]="entry.id" hidden>
+      <input matInput name="guid" id="guid" [ngModel]="entry.guid" hidden>
+      <mat-form-field>
+          <input matInput placeholder="Desc" name="desc" id="desc" [ngModel]="entry.desc" required>
+      </mat-form-field>
+      <mat-form-field>
+          <input matInput [matDatepicker]="picker" placeholder="Choose a date" name="date" id="date" [ngModel]="entry.date" required>
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker touchUi #picker></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-select placeholder="Title Id" name="titleId" id="titleId" [ngModel]="entry.titleId" required>
+          <mat-option *ngFor="let title of (titles$ | async)" [value]="title.id">
+            {{title.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+          <input matInput placeholder="Amount" name="amount" id="amount" [ngModel]="entry.amount" required [minValue]="1">
+      </mat-form-field>
+      <mat-form-field>
+          <mat-select placeholder="Kind" name="kind" id="kind" [ngModel]="entry.kind" required>
+            <mat-option *ngFor="let type of kindTypes" [value]="type.id">
+              {{type.name}}
+            </mat-option>
+          </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+          <input matInput placeholder="Ref. Id" name="refId" id="refId" [ngModel]="entry.refId">
+      </mat-form-field>
+      <div *ngIf="entry.id !== -1" fxLayout="row" fxLayoutAlign="space-around stretch">
+        <button mat-button type="button" (click)="onReset()">Cancel</button>
+        <button *ngIf="f.valid" mat-button type="button" (click)="onUpdate(f)">Update</button>
+      </div>
+      <button *ngIf="entry.id === -1 && f.valid" mat-button (click)="onAdd(f)">Add</button>
+
+      <button *ngIf="isValidate()" mat-button type="button" (click)="onSubmit()">Submit</button>
+    </form>
+</div>
