@@ -5,10 +5,7 @@ import {EntryListState} from '../state/entry-list.state';
 
 const initialState: EntryListState = {
   entryList : [
-      { guid: '', id: 0, transId: '0', date: '2018/04/07', desc: 'test1', titleId: '1000', amount: 1000, kind: Kind.Credit, refId: ''},
-      { guid: '', id: 1, transId: '0', date: '2018/04/07', desc: 'test1', titleId: '2000', amount: 1000, kind: Kind.Debit, refId: ''},
-      { guid: '', id: 2, transId: '0', date: '2018/04/07', desc: 'test1', titleId: '1000', amount: 1000, kind: Kind.Credit, refId: ''},
-      { guid: '', id: 3, transId: '0', date: '2018/04/07', desc: 'test1', titleId: '2000', amount: 1000, kind: Kind.Debit, refId: ''},
+
     ],
   isLoading: false
 };

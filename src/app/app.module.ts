@@ -19,7 +19,6 @@ import { EntryListComponent } from './bookkeeping/entry-list/entry-list.componen
 import { entryListReducer } from './service/ngrx/store/entry-list.reducers';
 
 import { TransListComponent } from './bookkeeping/trans-list/trans-list.component';
-import { transListReducer } from './service/ngrx/store/trans-list.reducers';
 
 import { ITitleService } from './service/ititle.service';
 import { IEntryService } from './service/ientry.service';
@@ -52,11 +51,8 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { ITitleRepository } from './repository/ititle.repository';
 import { IEntryRepository } from './repository/ientry.repository';
-import { ITransRepository } from './repository/itrans.repository';
 import { TitleRepository } from './repository/firebase/title.repository';
 import { EntryRepository } from './repository/firebase/entry.repository';
-import { TransRepository } from './repository/firebase/trans.repository';
-import { TransListEffects } from './service/ngrx/effect/trans.effect';
 import { TitleListEffects } from './service/ngrx/effect/title.effect';
 
 @NgModule({
@@ -73,8 +69,8 @@ import { TitleListEffects } from './service/ngrx/effect/title.effect';
     AppRoutingModule,
     FormsModule,
     BrowserAnimationsModule,
-    StoreModule.forRoot({titleListState: titleListReducer, entryListState: entryListReducer, transListState: transListReducer}),
-    EffectsModule.forRoot([EntryListEffects, TransListEffects, TitleListEffects]),
+    StoreModule.forRoot({titleListState: titleListReducer, entryListState: entryListReducer}),
+    EffectsModule.forRoot([EntryListEffects, TitleListEffects]),
     StoreDevtoolsModule.instrument({
       maxAge: 25, // Retains last 25 states
       logOnly: environment.production // Restrict extension to log-only mode
@@ -106,7 +102,6 @@ import { TitleListEffects } from './service/ngrx/effect/title.effect';
     { provide: ITransService, useClass: TransService },
     { provide: ITitleRepository, useClass: TitleRepository },
     { provide: IEntryRepository, useClass: EntryRepository },
-    { provide: ITransRepository, useClass: TransRepository },
   ],
   bootstrap: [AppComponent]
 })

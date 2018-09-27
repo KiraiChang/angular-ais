@@ -9,6 +9,4 @@ import { Trans } from '../model/accounting/trans.model';
 export abstract class ITransService {
 
   public abstract getList(): Observable<Trans[]>;
-
-  public abstract upsert(trans: Trans): void;
 }

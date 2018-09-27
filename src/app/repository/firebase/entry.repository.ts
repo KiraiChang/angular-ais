@@ -16,7 +16,8 @@ export class EntryRepository implements IEntryRepository {
   private itemsCollection: AngularFirestoreCollection<Entry>;
   items: Observable<Entry[]>;
   constructor(private afs: AngularFirestore) {
-    this.itemsCollection = afs.collection('test-accounting').doc('accounting').collection<Entry>('entry-list');
+    this.itemsCollection = afs.collection('test-accounting').doc('accounting')
+      .collection<Entry>('entry-list');
     this.items = this.itemsCollection.valueChanges();
    }
 

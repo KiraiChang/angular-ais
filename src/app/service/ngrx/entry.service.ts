@@ -27,6 +27,7 @@ export class EntryService extends IEntryService {
     return this.entryStore.pipe(select('entryListState'),
       map(x =>
         x.entryList
+        .sort((a, b) => (a.id > b.id) ? 1 : ((b.idx > a.idx) ? -1 : 0))
       ));
   }
 

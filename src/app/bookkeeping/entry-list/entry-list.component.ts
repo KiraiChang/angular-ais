@@ -205,15 +205,6 @@ export class EntryListComponent implements OnInit, OnDestroy {
   onSubmit() {
     if (this.entryService.isEntriesValidate(this.entries)) {
       this.entryService.upsertEntries(this.entries);
-      this.transService.upsert(
-        {
-          id: this.entries[0].transId,
-          desc: this.entries[0].desc,
-          date: this.entries[0].date,
-          amount: this.entries.filter(item => +item.kind === Kind.Credit)
-          .map(item => item.amount).reduce((total, current) => total + current)
-        }
-      );
       this.router.navigate(['trans']);
     }
   }
