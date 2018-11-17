@@ -47,8 +47,8 @@ import { MatToolbarModule,
           MatSortModule} from '@angular/material';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 
-import { AngularFireModule } from 'angularfire2';
-import { AngularFirestoreModule } from 'angularfire2/firestore';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { ITitleRepository } from './repository/ititle.repository';
 import { IEntryRepository } from './repository/ientry.repository';
 import { TitleRepository } from './repository/firebase/title.repository';

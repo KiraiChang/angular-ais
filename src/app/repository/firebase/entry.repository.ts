@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 
 import { map, mergeMap, delay } from 'rxjs/operators';
 
-import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 
 import { Entry } from '../../model/accounting/entry.model';
 
